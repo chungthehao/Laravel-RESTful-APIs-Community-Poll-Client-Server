@@ -23,7 +23,7 @@ Route::get('/redirect', function () {
     $query = http_build_query([
         'client_id' => '4',
         'redirect_uri' => 'http://127.0.0.1:8001/callback',
-        'response_type' => 'code',
+        'response_type' => 'code', // xác định kiểu trả về là mã ủy quyền.
         'scope' => ''
     ]);
 
@@ -39,7 +39,7 @@ Route::get('/callback', function (Illuminate\Http\Request $request) {
             'client_secret' => '4qgpKHlgOvKvWAjfBwhxLl9do8oJfW4xC00o7Wer',
             'grant_type' => 'authorization_code',
             'redirect_uri' => 'http://127.0.0.1:8001/callback',
-            'code' => $request->code,
+            'code' => $request->code, // Mã ủy quyền, có rồi thì client-server sẽ yêu cầu bên Authorization server cung cấp access_token
         ],
     ]);
     return json_decode((string) $response->getBody(), true);
